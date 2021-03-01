@@ -26,6 +26,7 @@ public class HoaDonCtDAO {
         contentValues.put("slmua",hoaDonChiTiet.getSlMua());
         sqLiteDatabase.insert("hoadonct",null,contentValues);
         return 1;
+        //zz
     }
     public ArrayList<HoaDonChiTiet> getAllHoadonCt() throws ParseException {
         SQLiteDatabase sqLiteDatabase=sqlite.getReadableDatabase();
