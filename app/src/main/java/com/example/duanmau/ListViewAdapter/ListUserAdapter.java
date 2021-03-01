@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.example.duanmau.Class.NguoiDungClass;
 import com.example.duanmau.R;
+import com.example.duanmau.Sql.Sqlite;
+import com.example.duanmau.Sql.UserDAO;
 
 import java.util.ArrayList;
 
@@ -56,8 +58,18 @@ public class ListUserAdapter extends BaseAdapter {
             listUserViewHolder=(ListUserViewHolder) convertView.getTag();
 
         listUserViewHolder.imgUser.setImageResource(R.drawable.emone);
-        listUserViewHolder.tvFullName.setText(arrNguoiDung.get(position).getHoten());
-        listUserViewHolder.tvPhone.setText(arrNguoiDung.get(position).getPhone());
+        listUserViewHolder.tvFullName.setText("Người dùng:"+arrNguoiDung.get(position).getHoten());
+        listUserViewHolder.tvPhone.setText("Sđt:"+arrNguoiDung.get(position).getPhone());
+        listUserViewHolder.imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Sqlite sqlite=new Sqlite(context);
+                UserDAO userDAO=new UserDAO(sqlite);
+                userDAO.deleteUser(arrNguoiDung.get(position).getUsername());
+                arrNguoiDung.remove(position);
+                notifyDataSetChanged();
+            }
+        });
         return convertView;
     }
 }

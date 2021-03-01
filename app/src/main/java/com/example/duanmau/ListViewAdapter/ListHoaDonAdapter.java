@@ -7,12 +7,19 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintSet;
 
 import com.example.duanmau.Class.HoaDon;
+import com.example.duanmau.Class.HoaDonChiTiet;
 import com.example.duanmau.R;
+import com.example.duanmau.Sql.HoaDonCtDAO;
+import com.example.duanmau.Sql.HoaDonDAO;
+import com.example.duanmau.Sql.Sqlite;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class ListHoaDonAdapter extends BaseAdapter {
@@ -44,6 +51,7 @@ public class ListHoaDonAdapter extends BaseAdapter {
     }
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
         ListHdViewHolder listHdViewHolder;
         if(convertView==null){
             listHdViewHolder=new ListHdViewHolder();
@@ -56,7 +64,28 @@ public class ListHoaDonAdapter extends BaseAdapter {
         }   else
             listHdViewHolder=(ListHdViewHolder) convertView.getTag();
         listHdViewHolder.tvMaHd.setText(arrHoadon.get(position).getMaHoaDon());
-        listHdViewHolder.tvNgay.setText(arrHoadon.get(position).getNgayMua().toString());
+        listHdViewHolder.tvNgay.setText(sdf.format(arrHoadon.get(position).getNgayMua()));
+        listHdViewHolder.imgDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Sqlite sqlite=new Sqlite(context);
+                HoaDonDAO hoaDonDAO=new HoaDonDAO(sqlite);
+                HoaDonCtDAO hoaDonCtDAO=new HoaDonCtDAO(sqlite);
+                ArrayList<HoaDonChiTiet> arrHdct= null;
+                try {
+                    arrHdct = hoaDonCtDAO.getHdctByMaHd(arrHoadon.get(position).getMaHoaDon());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if(arrHdct.size()==0){
+                    hoaDonDAO.deleteHoadon(arrHoadon.get(position).getMaHoaDon());
+                    arrHoadon.remove(position);
+                    notifyDataSetChanged();
+                } else {
+                    Toast.makeText(context, "Xóa hết hóa đơn chi tiết trước khi xóa hóa đơn", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
         return convertView;
     }
 }

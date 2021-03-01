@@ -6,6 +6,9 @@ public class TheLoaiClass {
     private String moTa;
     private int viTri;
 
+    public TheLoaiClass() {
+    }
+
     public TheLoaiClass(String maTheLoai, String tenTheLoai, String moTa, int viTri) {
         this.maTheLoai = maTheLoai;
         this.tenTheLoai = tenTheLoai;

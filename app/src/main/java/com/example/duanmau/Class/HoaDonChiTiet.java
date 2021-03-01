@@ -6,6 +6,9 @@ public class HoaDonChiTiet {
     private SachClass sachClass;
     private int slMua;
 
+    public HoaDonChiTiet() {
+    }
+
     public HoaDonChiTiet(int maHdct, HoaDon hoaDon, SachClass sachClass, int slMua) {
         this.maHdct = maHdct;
         this.hoaDon = hoaDon;

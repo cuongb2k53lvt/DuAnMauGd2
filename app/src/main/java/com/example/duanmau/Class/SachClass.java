@@ -9,6 +9,9 @@ public class SachClass {
     private double giaBia;
     private int soLuong;
 
+    public SachClass() {
+    }
+
     public SachClass(String maSach, String maTheLoai, String tenSach, String tacGia, String nxb, double giaBia, int soLuong) {
         this.maSach = maSach;
         this.maTheLoai = maTheLoai;

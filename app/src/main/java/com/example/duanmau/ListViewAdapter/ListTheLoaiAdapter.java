@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.example.duanmau.Class.TheLoaiClass;
 import com.example.duanmau.R;
+import com.example.duanmau.Sql.Sqlite;
+import com.example.duanmau.Sql.TheLoaiDAO;
 
 import java.util.ArrayList;
 
@@ -37,7 +39,7 @@ public class ListTheLoaiAdapter extends BaseAdapter {
     public class ListTheLoaiViewHolder{
         ImageView imgTheloai;
         ImageView imgDelete;
-        TextView tvVitri;
+        TextView tvMatl;
         TextView tvTentl;
     }
     @Override
@@ -47,14 +49,24 @@ public class ListTheLoaiAdapter extends BaseAdapter {
             listTheLoaiViewHolder=new ListTheLoaiViewHolder();
             convertView= LayoutInflater.from(context).inflate(R.layout.listview_theloai_layout,parent,false);
             listTheLoaiViewHolder.imgTheloai=convertView.findViewById(R.id.imgTheloai);
-            listTheLoaiViewHolder.tvVitri=convertView.findViewById(R.id.tvVitri);
+            listTheLoaiViewHolder.tvMatl=convertView.findViewById(R.id.tvMatl);
             listTheLoaiViewHolder.tvTentl=convertView.findViewById(R.id.tvTentheloai);
             listTheLoaiViewHolder.imgDelete=convertView.findViewById(R.id.imgDeleteTheloai);
             convertView.setTag(listTheLoaiViewHolder);
         }   else
             listTheLoaiViewHolder=(ListTheLoaiViewHolder) convertView.getTag();
-        listTheLoaiViewHolder.tvVitri.setText(Integer.toString(arrTheloai.get(position).getViTri()));
-        listTheLoaiViewHolder.tvTentl.setText(arrTheloai.get(position).getTenTheLoai());
+        listTheLoaiViewHolder.tvMatl.setText("Mã thể loại:"+arrTheloai.get(position).getMaTheLoai());
+        listTheLoaiViewHolder.tvTentl.setText("Tên thể loại:"+arrTheloai.get(position).getTenTheLoai());
+        listTheLoaiViewHolder.imgDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Sqlite sqlite=new Sqlite(context);
+                TheLoaiDAO theLoaiDAO=new TheLoaiDAO(sqlite);
+                theLoaiDAO.deleteTheloai(arrTheloai.get(position).getMaTheLoai());
+                arrTheloai.remove(position);
+                notifyDataSetChanged();
+            }
+        });
         return convertView;
     }
 }

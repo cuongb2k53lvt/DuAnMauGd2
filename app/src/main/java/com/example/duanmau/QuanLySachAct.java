@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.duanmau.Class.HoaDon;
 
@@ -23,11 +24,21 @@ public class QuanLySachAct extends AppCompatActivity {
         hoadon=findViewById(R.id.hoadon);
         top=findViewById(R.id.top);
         thongKe=findViewById(R.id.thongKe);
+        Intent intent=getIntent();
+        String userId=intent.getExtras().getString("USERID");
         nguoidung.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(QuanLySachAct.this, UserAct.class);
-                startActivity(intent);
+                if(userId.equalsIgnoreCase("admin")){
+                    Intent intent=new Intent(QuanLySachAct.this, UserAct.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putString("USERID",userId);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+//                    Toast.makeText(QuanLySachAct.this, userId, Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(QuanLySachAct.this, "Bạn không phải admin", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         theloai.setOnClickListener(new View.OnClickListener() {
@@ -40,7 +51,7 @@ public class QuanLySachAct extends AppCompatActivity {
         sach.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(QuanLySachAct.this,TheLoaiAct.class);
+                Intent intent=new Intent(QuanLySachAct.this,SachAct.class);
                 startActivity(intent);
             }
         });

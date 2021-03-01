@@ -6,6 +6,9 @@ public class NguoiDungClass {
     private String phone;
     private String hoten;
 
+    public NguoiDungClass() {
+    }
+
     public NguoiDungClass(String username, String password, String phone, String hoten) {
         this.username = username;
         this.password = password;

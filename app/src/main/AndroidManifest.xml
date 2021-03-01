@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DuAnMau">
-        <activity android:name=".ThongKeAct"></activity>
+        <activity android:name=".HoaDonCtAct"></activity>
+        <activity android:name=".ThongKeAct" />
         <activity android:name=".Top10SachAct" />
         <activity android:name=".ChiTietHoaDonAct" />
         <activity android:name=".AddHoaDonAct" />

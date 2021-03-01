@@ -32,11 +32,13 @@
         android:layout_height="wrap_content"
         android:text="Đổi Mật khẩu"
         android:backgroundTint="#7C7272"
-        android:id="@+id/btnChangePw"/>
+        android:id="@+id/btnChangePw"
+        android:onClick="changePassword"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btnCancelPw"
         android:text="Hủy"
-        android:backgroundTint="#7C7272"/>
+        android:backgroundTint="#7C7272"
+        android:onClick="Cancel"/>
 </LinearLayout>

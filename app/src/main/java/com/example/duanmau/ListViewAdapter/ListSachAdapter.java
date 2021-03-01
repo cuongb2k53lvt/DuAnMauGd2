@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.example.duanmau.Class.SachClass;
 import com.example.duanmau.R;
+import com.example.duanmau.Sql.SachDAO;
+import com.example.duanmau.Sql.Sqlite;
 
 import java.util.ArrayList;
 
@@ -24,6 +26,7 @@ public class ListSachAdapter extends BaseAdapter {
     public int getCount() {
         return arrSach.size();
     }
+
 
     @Override
     public Object getItem(int position) {
@@ -53,8 +56,18 @@ public class ListSachAdapter extends BaseAdapter {
             convertView.setTag(listSachViewHolder);
         }   else
             listSachViewHolder=(ListSachViewHolder) convertView.getTag();
-        listSachViewHolder.tvTensach.setText(arrSach.get(position).getTenSach());
-        listSachViewHolder.tvSl.setText(Integer.toString(arrSach.get(position).getSoLuong()));
+        listSachViewHolder.tvTensach.setText("Tên sách:"+arrSach.get(position).getTenSach());
+        listSachViewHolder.tvSl.setText("Số lượng:"+Integer.toString(arrSach.get(position).getSoLuong()));
+        listSachViewHolder.imgDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Sqlite sqlite=new Sqlite(context);
+                SachDAO sachDAO=new SachDAO(sqlite);
+                sachDAO.deleteSach(arrSach.get(position).getMaSach());
+                arrSach.remove(position);
+                notifyDataSetChanged();
+            }
+        });
         return convertView;
     }
 }

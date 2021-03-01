@@ -11,6 +11,8 @@ import android.widget.ListView;
 
 import com.example.duanmau.Class.SachClass;
 import com.example.duanmau.ListViewAdapter.ListSachAdapter;
+import com.example.duanmau.Sql.SachDAO;
+import com.example.duanmau.Sql.Sqlite;
 
 import java.util.ArrayList;
 
@@ -18,7 +20,6 @@ public class SachAct extends AppCompatActivity {
     Toolbar tbSach;
     Button btnAddSach;
     ListView lvSach;
-    ArrayList<SachClass> arrSach=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,8 +28,10 @@ public class SachAct extends AppCompatActivity {
         btnAddSach=findViewById(R.id.btnAddSach);
         lvSach=findViewById(R.id.lvSach);
         setSupportActionBar(tbSach);
-        SachClass sach1=new SachClass("MS01","TL01","android","cuongdbph","nxb",100000,100);
-        arrSach.add(sach1);
+        getSupportActionBar().setTitle("Sách");
+        Sqlite sqlite=new Sqlite(SachAct.this);
+        SachDAO sachDAO=new SachDAO(sqlite);
+        ArrayList<SachClass> arrSach=sachDAO.getAllSach();
         ListSachAdapter listSachAdapter=new ListSachAdapter(SachAct.this,arrSach);
         lvSach.setAdapter(listSachAdapter);
         btnAddSach.setOnClickListener(new View.OnClickListener() {

@@ -6,10 +6,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ChiTietHoaDonAct">
-    <EditText
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edtMaHd"/>
+        android:id="@+id/tvMaHd"/>
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,4 +42,8 @@
         android:layout_height="wrap_content"
         android:text="Tổng tiền :"
         android:id="@+id/tvTongTien"/>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lvAddHdct"/>
 </LinearLayout>
